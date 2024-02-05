@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+option go_package="murino/user";
+
+message User {
+  int64 id = 1;
+  int64 roleId = 2;
+  string email = 3;
+  string password = 4;
+  string name = 5;
+  google.protobuf.Timestamp lastAccess = 6;
+}
+
+message GetUserRole {
+   string roleId = 1;
+   string roleName = 2;
+   string name = 3;
+   string email = 4;
+   string lastAccess = 5;
+}
+
+message GetUserRoleBody {
+  repeated GetUserRole user = 1;
+}
+
+message LoginData {
+  string accessToken = 1;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message CreateUserRequest {
+  string roleId = 1;
+  string name = 2;
+  string email = 3;
+  string password = 4;
+}
+
+message UpdateUserRequest{
+  string name = 1;
+}
+
+message DeleteUserRequest{
+  int64 userId = 1;
+}
+
+message GetAllUserRequest{
+
+}
+
+message LoginResponse {
+   bool status = 1;
+   string message = 2;
+   LoginData data = 3;
+}
+
+message CreateUserResponse{
+  bool status = 1;
+  string message = 2;
+}
+
+message UpdateUserResponse{
+  bool status = 1;
+  string message = 2;
+}
+
+message DeleteUserResponse{
+  bool status = 1;
+  string message = 2;
+}
+
+message GetAllUserResponse{
+  bool status = 1;
+  string message = 2;
+  GetUserRoleBody data = 3;
+}
+
+
+service UserService{
+  rpc Login(LoginRequest) returns (LoginResponse) {};
+  //rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {};
+  //rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {};
+  //rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {};
+  //rpc GetAllUser(GetAllUserRequest) returns (GetAllUserResponse) {};
+}
